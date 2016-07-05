@@ -68,6 +68,7 @@ typedef NS_ENUM(NSUInteger, MSHeaderLayoutType) {
 @property (nonatomic) MSSectionLayoutType sectionLayoutType;
 @property (nonatomic) MSHeaderLayoutType headerLayoutType;
 @property (nonatomic) BOOL displayHeaderBackgroundAtOrigin;
+@property (nonatomic) BOOL firstVerticalGrid;
 @property (nonatomic) CGFloat timelineStart;
 @property (nonatomic) CGFloat timelineEnd;
 

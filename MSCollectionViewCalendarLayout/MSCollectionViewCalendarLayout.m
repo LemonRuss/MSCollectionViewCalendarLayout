@@ -383,7 +383,11 @@ NSUInteger const MSCollectionMinBackgroundZ = 0.0;
     
     // Horizontal Gridlines
     NSUInteger horizontalGridlineIndex = 0;
-    for (NSInteger hour = earliestHour + 1; hour <= latestHour; hour++) {
+  NSInteger hour = earliestHour;
+  if (_firstVerticalGrid == false) {
+    hour += 1;
+  }
+    for (hour; hour <= latestHour; hour++) {
         NSIndexPath *horizontalGridlineIndexPath = [NSIndexPath indexPathForItem:horizontalGridlineIndex inSection:0];
         UICollectionViewLayoutAttributes *horizontalGridlineAttributes = [self layoutAttributesForDecorationViewAtIndexPath:horizontalGridlineIndexPath ofKind:MSCollectionElementKindHorizontalGridline withItemCache:self.horizontalGridlineAttributes];
         CGFloat horizontalGridlineMinY = nearbyintf(calendarContentMinY + (self.hourHeight * (hour - earliestHour))) - (self.horizontalGridlineHeight / 2.0);
@@ -709,6 +713,7 @@ NSUInteger const MSCollectionMinBackgroundZ = 0.0;
 - (void)initialize
 {
     self.needsToPopulateAttributesForAllSections = YES;
+  self.firstVerticalGrid = YES;
     self.cachedDayDateComponents = [NSCache new];
     self.cachedStartTimeDateComponents = [NSCache new];
     self.cachedEndTimeDateComponents = [NSCache new];
@@ -737,7 +742,7 @@ NSUInteger const MSCollectionMinBackgroundZ = 0.0;
     self.sectionWidth = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 194.0 : 254.0);
     self.dayColumnHeaderHeight = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 60.0 : 50.0);
     self.timeRowHeaderWidth = 56.0;
-    self.currentTimeIndicatorSize = CGSizeMake(self.timeRowHeaderWidth, 10.0);
+    self.currentTimeIndicatorSize = CGSizeMake(self.timeRowHeaderWidth, 30.0);
     self.currentTimeHorizontalGridlineHeight = 1.0;
     self.verticalGridlineWidth = (([[UIScreen mainScreen] scale] == 2.0) ? 0.5 : 1.0);
     self.horizontalGridlineHeight = (([[UIScreen mainScreen] scale] == 2.0) ? 0.5 : 1.0);;
@@ -1238,7 +1243,8 @@ NSUInteger const MSCollectionMinBackgroundZ = 0.0;
         return [self.cachedCurrentDateComponents objectForKey:@(0)];
     }
     
-    NSDate *date = [self.delegate currentTimeComponentsForCollectionView:self.collectionView layout:self];
+  NSDate *date = [NSDate new];
+  //[self.delegate currentTimeComponentsForCollectionView:self.collectionView layout:self];
     NSDateComponents *currentTime = [[NSCalendar currentCalendar] components:(NSCalendarUnitDay | NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:date];
     
     [self.cachedCurrentDateComponents setObject:currentTime forKey:@(0)];
