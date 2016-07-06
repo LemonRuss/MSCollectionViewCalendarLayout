@@ -324,7 +324,17 @@ NSUInteger const MSCollectionMinBackgroundZ = 0.0;
         NSIndexPath *timeRowHeaderIndexPath = [NSIndexPath indexPathForItem:timeRowHeaderIndex inSection:0];
         UICollectionViewLayoutAttributes *timeRowHeaderAttributes = [self layoutAttributesForSupplementaryViewAtIndexPath:timeRowHeaderIndexPath ofKind:MSCollectionElementKindTimeRowHeader withItemCache:self.timeRowHeaderAttributes];
         CGFloat titleRowHeaderMinY = (calendarContentMinY + (self.hourHeight * (hour - earliestHour)) - nearbyintf(self.hourHeight / 2.0));
+      
         timeRowHeaderAttributes.frame = CGRectMake(timeRowHeaderMinX, titleRowHeaderMinY, self.timeRowHeaderWidth, self.hourHeight);
+      
+       UICollectionViewLayoutAttributes *currentTimeIndicatorAttributes = [self layoutAttributesForDecorationViewAtIndexPath:currentTimeIndicatorIndexPath ofKind:MSCollectionElementKindCurrentTimeIndicator withItemCache:self.currentTimeIndicatorAttributes];
+      CGRect timeRowFrame = timeRowHeaderAttributes.frame;
+      timeRowFrame.size.height = 10;
+      if (CGRectContainsRect(timeRowFrame, currentTimeIndicatorAttributes.frame)) {
+        timeRowHeaderAttributes.hidden = true;
+      } else {
+        timeRowHeaderAttributes.hidden = false;
+      }
         timeRowHeaderAttributes.zIndex = [self zIndexForElementKind:MSCollectionElementKindTimeRowHeader floating:timeRowHeaderFloating];
         timeRowHeaderIndex++;
     }
@@ -742,7 +752,7 @@ NSUInteger const MSCollectionMinBackgroundZ = 0.0;
     self.sectionWidth = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 194.0 : 254.0);
     self.dayColumnHeaderHeight = ((UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) ? 60.0 : 50.0);
     self.timeRowHeaderWidth = 56.0;
-    self.currentTimeIndicatorSize = CGSizeMake(self.timeRowHeaderWidth, 30.0);
+    self.currentTimeIndicatorSize = CGSizeMake(self.timeRowHeaderWidth, 10.0);
     self.currentTimeHorizontalGridlineHeight = 1.0;
     self.verticalGridlineWidth = (([[UIScreen mainScreen] scale] == 2.0) ? 0.5 : 1.0);
     self.horizontalGridlineHeight = (([[UIScreen mainScreen] scale] == 2.0) ? 0.5 : 1.0);;
