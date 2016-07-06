@@ -329,8 +329,9 @@ NSUInteger const MSCollectionMinBackgroundZ = 0.0;
       
        UICollectionViewLayoutAttributes *currentTimeIndicatorAttributes = [self layoutAttributesForDecorationViewAtIndexPath:currentTimeIndicatorIndexPath ofKind:MSCollectionElementKindCurrentTimeIndicator withItemCache:self.currentTimeIndicatorAttributes];
       CGRect timeRowFrame = timeRowHeaderAttributes.frame;
-      timeRowFrame.size.height = 10;
-      if (CGRectContainsRect(timeRowFrame, currentTimeIndicatorAttributes.frame)) {
+      timeRowFrame.size.height = 24;
+      timeRowFrame.origin.y += 26;
+      if (CGRectIntersectsRect(timeRowFrame, currentTimeIndicatorAttributes.frame)) {
         timeRowHeaderAttributes.hidden = true;
       } else {
         timeRowHeaderAttributes.hidden = false;
