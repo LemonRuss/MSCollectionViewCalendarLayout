@@ -329,9 +329,10 @@ NSUInteger const MSCollectionMinBackgroundZ = 0.0;
       
        UICollectionViewLayoutAttributes *currentTimeIndicatorAttributes = [self layoutAttributesForDecorationViewAtIndexPath:currentTimeIndicatorIndexPath ofKind:MSCollectionElementKindCurrentTimeIndicator withItemCache:self.currentTimeIndicatorAttributes];
       CGRect timeRowFrame = timeRowHeaderAttributes.frame;
-      timeRowFrame.size.height = 40;
-      timeRowFrame.origin.y += 25;
-      if (CGRectIntersectsRect(timeRowFrame, currentTimeIndicatorAttributes.frame)) {
+      timeRowFrame.size.height = 30;
+      timeRowFrame.origin.y += 10;
+      CGRect currentTimeFrame = currentTimeIndicatorAttributes.frame;
+      if (CGRectIntersectsRect(timeRowFrame, currentTimeFrame)) {
         timeRowHeaderAttributes.hidden = true;
       } else {
         timeRowHeaderAttributes.hidden = false;
@@ -354,7 +355,7 @@ NSUInteger const MSCollectionMinBackgroundZ = 0.0;
             NSIndexPath *verticalGridlineIndexPath = [NSIndexPath indexPathForItem:0 inSection:section];
             UICollectionViewLayoutAttributes *horizontalGridlineAttributes = [self layoutAttributesForDecorationViewAtIndexPath:verticalGridlineIndexPath ofKind:MSCollectionElementKindVerticalGridline withItemCache:self.verticalGridlineAttributes];
             CGFloat horizontalGridlineMinX = nearbyintf(sectionMinX - self.sectionMargin.left - (self.verticalGridlineWidth / 2.0));
-            horizontalGridlineAttributes.frame = CGRectMake(horizontalGridlineMinX, calendarGridMinY, self.verticalGridlineWidth, sectionHeight);
+            horizontalGridlineAttributes.frame = CGRectMake(horizontalGridlineMinX, calendarGridMinY, self.verticalGridlineWidth, sectionHeight );
         }
         
         if (needsToPopulateItemAttributes) {
