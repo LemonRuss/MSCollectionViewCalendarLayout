@@ -329,8 +329,8 @@ NSUInteger const MSCollectionMinBackgroundZ = 0.0;
       
        UICollectionViewLayoutAttributes *currentTimeIndicatorAttributes = [self layoutAttributesForDecorationViewAtIndexPath:currentTimeIndicatorIndexPath ofKind:MSCollectionElementKindCurrentTimeIndicator withItemCache:self.currentTimeIndicatorAttributes];
       CGRect timeRowFrame = timeRowHeaderAttributes.frame;
-      timeRowFrame.size.height = 24;
-      timeRowFrame.origin.y += 26;
+      timeRowFrame.size.height = 40;
+      timeRowFrame.origin.y += 25;
       if (CGRectIntersectsRect(timeRowFrame, currentTimeIndicatorAttributes.frame)) {
         timeRowHeaderAttributes.hidden = true;
       } else {
@@ -382,8 +382,8 @@ NSUInteger const MSCollectionMinBackgroundZ = 0.0;
                 
                 CGFloat itemMinY = nearbyintf(startHourY + startMinuteY + calendarContentMinY + self.cellMargin.top);
                 CGFloat itemMaxY = nearbyintf(endHourY + endMinuteY + calendarContentMinY - self.cellMargin.bottom);
-                CGFloat itemMinX = nearbyintf(sectionMinX + self.cellMargin.left);
-                CGFloat itemMaxX = nearbyintf(itemMinX + (self.sectionWidth - (self.cellMargin.left + self.cellMargin.right)));
+                CGFloat itemMinX = (sectionMinX + self.cellMargin.left);
+                CGFloat itemMaxX = (itemMinX + (self.sectionWidth - (self.cellMargin.left + self.cellMargin.right)));
                 itemAttributes.frame = CGRectMake(itemMinX, itemMinY, (itemMaxX - itemMinX), (itemMaxY - itemMinY));
                 
                 itemAttributes.zIndex = [self zIndexForElementKind:nil];
@@ -521,7 +521,7 @@ NSUInteger const MSCollectionMinBackgroundZ = 0.0;
                 
                 CGFloat itemMinY = nearbyintf(startHourY + startMinuteY + calendarGridMinY + self.cellMargin.top);
                 CGFloat itemMaxY = nearbyintf(endHourY + endMinuteY + calendarGridMinY - self.cellMargin.bottom);
-                CGFloat itemMinX = nearbyintf(calendarGridMinX + self.sectionMargin.left + self.cellMargin.left);
+                CGFloat itemMinX = (calendarGridMinX + self.sectionMargin.left + self.cellMargin.left);
                 CGFloat itemMaxX = nearbyintf(itemMinX + (self.sectionWidth - self.cellMargin.left - self.cellMargin.right));
                 itemAttributes.frame = CGRectMake(itemMinX, itemMinY, (itemMaxX - itemMinX), (itemMaxY - itemMinY));
                 
@@ -602,8 +602,9 @@ NSUInteger const MSCollectionMinBackgroundZ = 0.0;
             }
             
             // Adjust the items to have a width of the section size divided by the number of divisions needed
-            CGFloat divisionWidth = nearbyintf(self.sectionWidth / divisions);
-            
+          //FIXED: was nearbyintf
+          CGFloat divisionWidth = self.sectionWidth / divisions;
+          
             NSMutableArray *dividedAttributes = [NSMutableArray array];
             for (UICollectionViewLayoutAttributes *divisionAttributes in overlappingItems) {
                 
