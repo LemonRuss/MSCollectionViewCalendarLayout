@@ -249,8 +249,8 @@ NSUInteger const MSCollectionMinBackgroundZ = 0.0;
     
     CGFloat sectionWidth = (self.sectionMargin.left + self.sectionWidth + self.sectionMargin.right);
     CGFloat sectionHeight = nearbyintf((self.hourHeight * (latestHour - earliestHour)) + (self.sectionMargin.top + self.sectionMargin.bottom));
-    CGFloat calendarGridMinX = (self.timeRowHeaderWidth + self.contentMargin.left);
-    CGFloat calendarGridMinY = (self.dayColumnHeaderHeight + self.contentMargin.top);
+    CGFloat calendarGridMinX = (self.timeRowHeaderWidth + self.contentMargin.left + self.cellMargin.left);
+    CGFloat calendarGridMinY = (self.dayColumnHeaderHeight);
     CGFloat calendarContentMinX = (self.timeRowHeaderWidth + self.contentMargin.left + self.sectionMargin.left);
     CGFloat calendarContentMinY = (self.dayColumnHeaderHeight + self.contentMargin.top + self.sectionMargin.top);
     CGFloat calendarGridWidth = (self.collectionViewContentSize.width - self.timeRowHeaderWidth - self.contentMargin.right);
