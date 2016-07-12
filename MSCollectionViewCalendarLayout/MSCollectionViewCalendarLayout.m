@@ -608,14 +608,14 @@ NSUInteger const MSCollectionMinBackgroundZ = 0.0;
             NSMutableArray *dividedAttributes = [NSMutableArray array];
             for (UICollectionViewLayoutAttributes *divisionAttributes in overlappingItems) {
                 
-                CGFloat itemWidth = (divisionWidth - self.cellMargin.right);
+                CGFloat itemWidth = (divisionWidth - self.cellMargin.left - self.cellMargin.right);
                 
                 // It it hasn't yet been adjusted, perform adjustment
                 if (![adjustedAttributes containsObject:divisionAttributes]) {
                 
                     CGRect divisionAttributesFrame = divisionAttributes.frame;
                     divisionAttributesFrame.origin.x = (sectionMinX + self.cellMargin.left);
-                    divisionAttributesFrame.size.width = itemWidth;
+                    divisionAttributesFrame.size.width = itemWidth  + self.cellMargin.right;
                 
                     // Horizontal Layout
                     NSInteger adjustments = 1;
